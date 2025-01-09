@@ -1,5 +1,4 @@
 {
-  config,
   lib,
   pkgs,
   stateVersion,
@@ -32,10 +31,6 @@ in
       ];
     sessionVariables = {
       EDITOR = "micro";
-      MANPAGER = "sh -c 'col --no-backspaces --spaces | bat --language man'";
-      MANROFFOPT = "-c";
-      MICRO_TRUECOLOR = "1";
-      PAGER = "bat";
       SYSTEMD_EDITOR = "micro";
       VISUAL = "micro";
     };
@@ -48,44 +43,11 @@ in
     entries = lib.mkForce [ ];
   };
 
-  nixpkgs = {
-    config = {
-      allowUnfree = true;
-    };
-  };
-
   nix = {
     package = pkgs.nixVersions.latest;
-    settings = {
-      experimental-features = "flakes nix-command";
-      trusted-users = [
-        "root"
-        "${username}"
-      ];
-    };
   };
 
   programs = {
-    bat = {
-      enable = true;
-      extraPackages = with pkgs.bat-extras; [
-        batgrep
-        batwatch
-        prettybat
-      ];
-      config = {
-        style = "plain";
-      };
-    };
-    direnv = {
-      enable = true;
-      enableBashIntegration = true;
-      enableZshIntegration = true;
-      nix-direnv = {
-        enable = true;
-      };
-    };
-    fish.enable = true;
     home-manager.enable = true;
     micro = {
       enable = true;
@@ -103,7 +65,4 @@ in
       };
     };
   };
-
-  # Nicely reload system units when changing configs
-  systemd.user.startServices = lib.mkIf isLinux "sd-switch";
 }

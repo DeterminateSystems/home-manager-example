@@ -15,9 +15,20 @@
       helper = import ./lib { inherit inputs outputs stateVersion; };
     in
     {
-      # home-manager build --flake .#nixos@nixos -L
+      # To adapt this example to your needs, you need to change the following:
+      # - macUsername -> your username on macOS (e.g. `whoami` in the terminal)
+      # - macHostname -> the hostname of your Mac (e.g. `hostname` in the terminal)
+      # - linuxUsername -> your username on the Ubuntu machine (e.g. `whoami` in the terminal)
+      # - linuxHostname -> the hostname of your Ubuntu machine (e.g. `hostname` in the terminal)
       homeConfigurations = {
-        "nixos@nixos" = helper.mkHome { };
+        "macUsername@macHostname" = helper.mkHome {
+          username = "macUsername";
+          hostname = "macHostname";
+        };
+        "linuxUsername@linuxHostname" = helper.mkHome {
+          username = "linuxUsername";
+          hostname = "linuxHostname";
+        };
       };
     };
 }
