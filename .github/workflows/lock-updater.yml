@@ -16,11 +16,11 @@ jobs:
       pull-requests: write
     steps:
       - uses: actions/checkout@v4
-      - uses: DeterminateSystems/nix-installer-action@v16
+      - uses: DeterminateSystems/nix-installer-action@main
         with:
           determinate: true
-      - uses: DeterminateSystems/magic-nix-cache-action@v8
-      - uses: DeterminateSystems/update-flake-lock@v24
+      - uses: DeterminateSystems/flakehub-cache-action@main
+      - uses: DeterminateSystems/update-flake-lock@main
         with:
           pr-title: "chore: update flake.lock"
           # Labels to be set on the PR
